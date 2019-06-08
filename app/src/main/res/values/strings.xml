@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">AM_Projekt</string>
+    <string name="title_activity_my_fs">MyFSActivity</string>
+    <string name="multi_app">Multi App</string>
+    <string name="title_activity_sensor">SensorActivity</string>
+    <string name="sensors">Sensors</string>
+    <string name="light_measurement">Light measurement</string>
+    <string name="proximity_measurement">Proximity measurement</string>
 </resources>
