@@ -15,5 +15,12 @@
             android:text="@string/sensors"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true"/>
+    <Button
+            android:id="@+id/btnLaunchWeatherActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btnLaunchWeatherActivityClick"
+            android:text="@string/weather"
+            android:layout_below="@id/btnLaunchSensorActivity"/>
 
 </RelativeLayout>
