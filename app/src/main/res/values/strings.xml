@@ -6,7 +6,6 @@
     <string name="sensors">Sensors</string>
     <string name="light_measurement">Light measurement</string>
     <string name="proximity_measurement">Proximity measurement</string>
-    <string name="title_activity_weather">WeatherActivity</string>
     <string name="find_weather_info">Find weather info</string>
     <string name="enter_city_name">Enter city name</string>
     <string name="temperature">Temperature</string>
@@ -14,4 +13,9 @@
     <string name="humidity">Humidity</string>
     <string name="city_name">City name</string>
     <string name="weather">Weather</string>
+    <string name="title_activity_calculator">CalculatorActivity</string>
+    <string name="first_number">First number</string>
+    <string name="second_number">Second number</string>
+    <string name="calculator">Calculator</string>
+    <string name="title_activity_weather">WeatherActivity</string>
 </resources>

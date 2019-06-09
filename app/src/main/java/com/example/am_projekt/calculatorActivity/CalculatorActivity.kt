@@ -1,0 +1,56 @@
+package com.example.am_projekt.calculatorActivity
+
+import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import android.view.View
+import android.widget.Toast
+import com.example.am_projekt.R
+import kotlinx.android.synthetic.main.activity_calculator.*
+
+class CalculatorActivity : AppCompatActivity() {
+
+    private var firstNumber = 0f
+    private var secondNumber = 0f
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_calculator)
+    }
+
+    fun btnAddClick(v: View) {
+        getNumbersFromInputs()
+        val result = firstNumber + secondNumber
+        setResult(result)
+    }
+
+    fun btnSubtractClick(v: View) {
+        getNumbersFromInputs()
+        val result = firstNumber - secondNumber
+        setResult(result)
+    }
+
+    fun btnMultiplyClick(v: View) {
+        getNumbersFromInputs()
+        val result = firstNumber * secondNumber
+        setResult(result)
+    }
+
+    fun btnDivideClick(v: View) {
+        getNumbersFromInputs()
+        val result = firstNumber / secondNumber
+        setResult(result)
+    }
+
+    private fun getNumbersFromInputs() {
+        try {
+            firstNumber = etFirstNumber.text.toString().toFloat()
+            secondNumber = etSecondNumber.text.toString().toFloat()
+        } catch (e: Exception) {
+            Toast.makeText(this, "Please give correct numbers", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun setResult(result: Float) {
+        tvResult.text = result.toString()
+    }
+}

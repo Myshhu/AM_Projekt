@@ -8,13 +8,20 @@
         tools:context=".weatherActivity.WeatherActivity">
 
     <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wind weather info"
+            android:gravity="center"
+            android:textSize="45sp"/>
+
+    <TextView
             android:text="@string/enter_city_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
             android:id="@+id/textViewCityNameLabel"
             android:gravity="center"
-            android:textSize="30sp"/>
+            android:textSize="20sp"/>
 
     <EditText
             android:layout_width="match_parent"
