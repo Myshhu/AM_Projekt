@@ -1,37 +1,44 @@
-package com.example.am_projekt.loginActivity
+package com.example.am_projekt.registerActivity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.support.v7.app.AppCompatActivity;
 import android.view.View
 import android.widget.Toast
 import com.example.am_projekt.MainActivity
 import com.example.am_projekt.R
 import com.example.am_projekt.variables.CurrentLoggedUser
-import kotlinx.android.synthetic.main.content_login.*
+
+import kotlinx.android.synthetic.main.content_register.*
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import java.io.PrintWriter
 import java.lang.NullPointerException
 import java.net.Socket
-import java.io.BufferedReader
-import java.io.InputStreamReader
 
-
-class LoginActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_register)
     }
 
-    fun btnLoginClick(v: View) {
+
+    fun btnRegisterClick(v: View) {
         Thread {
-            val username = etLogin.text.toString()
-            val password = etPassword.text.toString()
-            val serverIP = etIP.text.toString()
+            val username = etRegisterLogin.text.toString()
+            val password = etRegisterPassword.text.toString()
+            val confirmedPassword = etRegisterConfirmPassword.text.toString()
+            val serverIP = etRegisterIP.text.toString()
             var clientSocket: Socket? = null
 
-            if (username == "" || password == "") {
-                Toast.makeText(this, "Please fill username and password", Toast.LENGTH_SHORT).show()
+            if (username == "" || password == "" || confirmedPassword == "") {
+                Toast.makeText(this, "Please fill username and passwords", Toast.LENGTH_SHORT).show()
+                return@Thread
+            }
+
+            if (password != confirmedPassword) {
+                Toast.makeText(this, "Given passwords do not match", Toast.LENGTH_SHORT).show()
                 return@Thread
             }
 
@@ -61,13 +68,13 @@ class LoginActivity : AppCompatActivity() {
         try {
             if(clientSocket != null) {
                 val printWriter = PrintWriter(clientSocket.getOutputStream(), true)
-                printWriter.println("login")
+                printWriter.println("register")
                 printWriter.println(username)
                 printWriter.println(password)
                 if(readAnswerFromServer(clientSocket)) {
-                    afterSuccessfulLogin(username)
+                    afterSuccessfulRegister(username)
                 } else {
-                    afterFailedLogin()
+                    afterFailedRegister()
                 }
             } else {
                 throw NullPointerException()
@@ -79,18 +86,19 @@ class LoginActivity : AppCompatActivity() {
 
     private fun readAnswerFromServer(clientSocket: Socket): Boolean {
         val br = BufferedReader(InputStreamReader(clientSocket.getInputStream()))
-        return br.readLine() == "verified"
+        return br.readLine() == "registered"
     }
 
-    private fun afterSuccessfulLogin(username: String) {
+    private fun afterSuccessfulRegister(username: String) {
         CurrentLoggedUser.setCurrentLoggedUsername(username)
+        Toast.makeText(this, "Successfully registered user", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }
 
-    private fun afterFailedLogin() {
-        Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show()
+    private fun afterFailedRegister() {
+        Toast.makeText(this, "Register failed", Toast.LENGTH_SHORT).show()
     }
-}
 
+}

@@ -6,14 +6,24 @@ import android.os.Bundle
 import android.view.View
 import com.example.am_projekt.calculatorActivity.CalculatorActivity
 import com.example.am_projekt.loginActivity.LoginActivity
+import com.example.am_projekt.registerActivity.RegisterActivity
 import com.example.am_projekt.sensorActivity.SensorActivity
+import com.example.am_projekt.variables.CurrentLoggedUser
 import com.example.am_projekt.weatherActivity.WeatherActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        setCurrentUsernameTextView()
+    }
+
+    private fun setCurrentUsernameTextView() {
+        val resultString = "Current user: " + CurrentLoggedUser.getCurrentLoggedUsername()
+        tvCurrentLoggedUser.text = resultString
     }
 
     fun btnLaunchSensorActivityClick(v: View) {
@@ -43,6 +53,11 @@ class MainActivity : AppCompatActivity() {
 
     fun btnLaunchLoginActivityClick(v: View) {
         val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun btnLaunchRegisterActivityClick(v: View) {
+        val intent = Intent(this, RegisterActivity::class.java)
         startActivity(intent)
     }
 }

@@ -59,7 +59,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="btnLaunchLoginActivityClick"
-            android:text="@string/login_activity"
+            android:text="@string/login"
             android:layout_below="@id/btnLaunchShowWeatherDBActivity"/>
+
+    <Button
+            android:id="@+id/btnLaunchRegisterActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btnLaunchRegisterActivityClick"
+            android:text="@string/register"
+            android:layout_below="@id/btnLaunchLoginActivity"/>
+
+    <TextView
+            android:id="@+id/tvCurrentLoggedUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:text="Current user"/>
 
 </RelativeLayout>
