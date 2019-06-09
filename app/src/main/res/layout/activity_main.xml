@@ -27,8 +27,7 @@
             android:layout_height="wrap_content"
             android:onClick="btnLaunchWeatherActivityClick"
             android:text="@string/weather"
-            android:layout_centerVertical="true"
-            android:layout_alignParentStart="true"/>
+            android:layout_above="@id/btnLaunchCalculatorActivity"/>
 
     <Button
             android:id="@+id/btnLaunchCalculatorActivity"
@@ -36,7 +35,7 @@
             android:layout_height="wrap_content"
             android:onClick="btnLaunchCalculatorActivityClick"
             android:text="@string/calculator"
-            android:layout_below="@id/btnLaunchWeatherActivity"/>
+            android:layout_above="@id/btnLaunchShowCalculatorDBActivity"/>
 
     <Button
             android:id="@+id/btnLaunchShowCalculatorDBActivity"
@@ -44,7 +43,7 @@
             android:layout_height="wrap_content"
             android:onClick="btnLaunchShowCalculatorDBActivityClick"
             android:text="@string/show_calculator_db_activity"
-            android:layout_below="@id/btnLaunchCalculatorActivity"/>
+            android:layout_above="@id/btnLaunchShowWeatherDBActivity"/>
 
     <Button
             android:id="@+id/btnLaunchShowWeatherDBActivity"
@@ -52,7 +51,8 @@
             android:layout_height="wrap_content"
             android:onClick="btnLaunchShowWeatherDBActivityClick"
             android:text="@string/show_weather_db_activity"
-            android:layout_below="@id/btnLaunchShowCalculatorDBActivity"/>
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"/>
 
     <Button
             android:id="@+id/btnLaunchLoginActivity"

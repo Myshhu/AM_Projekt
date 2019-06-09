@@ -28,7 +28,6 @@
     <string name="login_activity">Login activity</string>
     <string name="server_ip">Server IP</string>
     <string name="title_activity_register">RegisterActivity</string>
-    <string name="register">Register</string>
     <string name="confirm_password">Confirm password</string>
     <string name="register">Register</string>
     <string name="login">Login</string>
