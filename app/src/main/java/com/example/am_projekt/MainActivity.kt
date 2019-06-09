@@ -29,4 +29,14 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, CalculatorActivity::class.java)
         startActivity(intent)
     }
+
+    fun btnLaunchShowCalculatorDBActivityClick(v: View) {
+        val intent = Intent(this, ShowCalculatorDBActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun btnLaunchShowWeatherDBActivityClick(v: View) {
+        val intent = Intent(this, ShowWeatherDBActivity::class.java)
+        startActivity(intent)
+    }
 }

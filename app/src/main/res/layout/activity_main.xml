@@ -38,4 +38,19 @@
             android:text="@string/calculator"
             android:layout_below="@id/btnLaunchWeatherActivity"/>
 
+    <Button
+            android:id="@+id/btnLaunchShowCalculatorDBActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btnLaunchShowCalculatorDBActivityClick"
+            android:text="@string/show_calculator_db_activity"
+            android:layout_below="@id/btnLaunchCalculatorActivity"/>
+    <Button
+            android:id="@+id/btnLaunchShowWeatherDBActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btnLaunchShowWeatherDBActivityClick"
+            android:text="@string/show_weather_db_activity"
+            android:layout_below="@id/btnLaunchShowCalculatorDBActivity"/>
+
 </RelativeLayout>

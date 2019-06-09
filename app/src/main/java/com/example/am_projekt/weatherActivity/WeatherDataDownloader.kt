@@ -8,6 +8,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.example.am_projekt.R
+import com.example.am_projekt.database.DatabaseHelper
+import com.example.am_projekt.variables.CurrentLoggedUser
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -22,6 +24,7 @@ class WeatherDataDownloader(context: Activity) : AsyncTask<Void, Int, Void>() {
     private var textViewPressure: WeakReference<TextView>? = null
     private var textViewHumidity: WeakReference<TextView>? = null
     private var editTextCityName: WeakReference<EditText>? = null
+    private lateinit var cityName: String
 
     private lateinit var myJSONObject: JSONObject
 
@@ -31,7 +34,7 @@ class WeatherDataDownloader(context: Activity) : AsyncTask<Void, Int, Void>() {
         textViewPressure = WeakReference(context.get()?.findViewById(R.id.textViewPressure))
         textViewHumidity = WeakReference(context.get()?.findViewById(R.id.textViewHumidity))
         editTextCityName = WeakReference(context.get()?.findViewById(R.id.editTextCityName))
-        val cityName = editTextCityName?.get()?.text.toString()
+        cityName = editTextCityName?.get()?.text.toString()
 
         try {
             val url =
@@ -103,8 +106,15 @@ class WeatherDataDownloader(context: Activity) : AsyncTask<Void, Int, Void>() {
             textViewPressure?.get()?.text = String.format("%s hPa", pressure)
             textViewHumidity?.get()?.text = String.format("%s%%", humidity)
 
+            addToDatabase(cityName, temperature, pressure, humidity)
+
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    private fun addToDatabase(cityName: String, temperature: Double, pressure: String, humidity: String) {
+        DatabaseHelper(context.get()).addWeatherItem(CurrentLoggedUser.getCurrentLoggedUsername(),
+            cityName, temperature.toFloat(), humidity.toFloat() ,pressure.toFloat())
     }
 }

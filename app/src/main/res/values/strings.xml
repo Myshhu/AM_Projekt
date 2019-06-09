@@ -18,4 +18,7 @@
     <string name="second_number">Second number</string>
     <string name="calculator">Calculator</string>
     <string name="title_activity_weather">WeatherActivity</string>
+    <string name="title_activity_show_db">ShowDBActivity</string>
+    <string name="show_calculator_db_activity">Show Calculator DB Activity</string>
+    <string name="show_weather_db_activity">Show Weather DB Activity</string>
 </resources>
