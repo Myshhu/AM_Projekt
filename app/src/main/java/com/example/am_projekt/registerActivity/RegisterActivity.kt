@@ -33,12 +33,12 @@ class RegisterActivity : AppCompatActivity() {
             var clientSocket: Socket? = null
 
             if (username == "" || password == "" || confirmedPassword == "") {
-                Toast.makeText(this, "Please fill username and passwords", Toast.LENGTH_SHORT).show()
+                showToast("Please fill username and passwords")
                 return@Thread
             }
 
             if (password != confirmedPassword) {
-                Toast.makeText(this, "Given passwords do not match", Toast.LENGTH_SHORT).show()
+                showToast("Given passwords do not match")
                 return@Thread
             }
 
@@ -58,7 +58,7 @@ class RegisterActivity : AppCompatActivity() {
             clientSocket = Socket(serverIP, 50005)
         } catch (e: Exception) {
             e.printStackTrace()
-            Toast.makeText(this, "Connection failed", Toast.LENGTH_SHORT).show()
+            showToast("Connection failed")
             return null
         }
         return clientSocket
@@ -91,14 +91,20 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun afterSuccessfulRegister(username: String) {
         CurrentLoggedUser.setCurrentLoggedUsername(username)
-        Toast.makeText(this, "Successfully registered user", Toast.LENGTH_SHORT).show()
+        showToast("Successfully registered user")
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }
 
     private fun afterFailedRegister() {
-        Toast.makeText(this, "Register failed", Toast.LENGTH_SHORT).show()
+        showToast("Register failed")
+    }
+
+    private fun showToast(message: String) {
+        runOnUiThread {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

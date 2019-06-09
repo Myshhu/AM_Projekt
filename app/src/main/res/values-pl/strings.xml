@@ -19,4 +19,16 @@
     <string name="first_number">Pierwsza liczba</string>
     <string name="second_number">Druga liczba</string>
     <string name="calculator">Kalkulator</string>
+    <string name="title_activity_show_db">ShowDBActivity</string>
+    <string name="show_calculator_db_activity">Calculator DB</string>
+    <string name="show_weather_db_activity">Weather DB</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="log_in">Zaloguj się</string>
+    <string name="username">Nazwa użytkownika</string>
+    <string name="password">Hasło</string>
+    <string name="login_activity">Login activity</string>
+    <string name="server_ip">Adres IP Serwera</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="confirm_password">Potwierdź hasło</string>
+    <string name="login">Login</string>
 </resources>

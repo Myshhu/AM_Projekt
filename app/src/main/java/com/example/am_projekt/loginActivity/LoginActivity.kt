@@ -31,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
             var clientSocket: Socket? = null
 
             if (username == "" || password == "") {
-                Toast.makeText(this, "Please fill username and password", Toast.LENGTH_SHORT).show()
+                showToast("Please fill username and password")
                 return@Thread
             }
 
@@ -51,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
             clientSocket = Socket(serverIP, 50005)
         } catch (e: Exception) {
             e.printStackTrace()
-            Toast.makeText(this, "Connection failed", Toast.LENGTH_SHORT).show()
+            showToast("Connection failed")
             return null
         }
         return clientSocket
@@ -84,13 +84,20 @@ class LoginActivity : AppCompatActivity() {
 
     private fun afterSuccessfulLogin(username: String) {
         CurrentLoggedUser.setCurrentLoggedUsername(username)
+        showToast("Logged in")
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }
 
     private fun afterFailedLogin() {
-        Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show()
+        showToast("Login failed")
+    }
+
+    private fun showToast(message: String) {
+        runOnUiThread {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        }
     }
 }
 

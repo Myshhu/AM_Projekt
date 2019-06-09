@@ -16,5 +16,5 @@
             android:text="@string/multi_app"
             android:gravity="center"
             android:layout_gravity="center"
-            android:textColor="#43CDEE"/>
+            android:textColor="@color/colorSecondary"/>
 </FrameLayout>
