@@ -45,6 +45,7 @@
             android:onClick="btnLaunchShowCalculatorDBActivityClick"
             android:text="@string/show_calculator_db_activity"
             android:layout_below="@id/btnLaunchCalculatorActivity"/>
+
     <Button
             android:id="@+id/btnLaunchShowWeatherDBActivity"
             android:layout_width="match_parent"
@@ -52,5 +53,13 @@
             android:onClick="btnLaunchShowWeatherDBActivityClick"
             android:text="@string/show_weather_db_activity"
             android:layout_below="@id/btnLaunchShowCalculatorDBActivity"/>
+
+    <Button
+            android:id="@+id/btnLaunchLoginActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="btnLaunchLoginActivityClick"
+            android:text="@string/login_activity"
+            android:layout_below="@id/btnLaunchShowWeatherDBActivity"/>
 
 </RelativeLayout>

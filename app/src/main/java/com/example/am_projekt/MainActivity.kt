@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.example.am_projekt.calculatorActivity.CalculatorActivity
+import com.example.am_projekt.loginActivity.LoginActivity
 import com.example.am_projekt.sensorActivity.SensorActivity
 import com.example.am_projekt.weatherActivity.WeatherActivity
 
@@ -37,6 +38,11 @@ class MainActivity : AppCompatActivity() {
 
     fun btnLaunchShowWeatherDBActivityClick(v: View) {
         val intent = Intent(this, ShowWeatherDBActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun btnLaunchLoginActivityClick(v: View) {
+        val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
 }

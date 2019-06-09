@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:showIn="@layout/activity_show_calculator_db"
+        tools:showIn="@layout/activity_show_db_content"
         android:orientation="vertical"
         tools:context=".ShowCalculatorDBActivity">
 
@@ -14,6 +14,7 @@
             android:id="@+id/tvDBContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:text="DBContent"/>
 
 </ScrollView>
