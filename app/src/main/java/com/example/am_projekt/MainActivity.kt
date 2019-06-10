@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.example.am_projekt.calculatorActivity.CalculatorActivity
+import com.example.am_projekt.dataManager.DataManager
 import com.example.am_projekt.loginActivity.LoginActivity
 import com.example.am_projekt.registerActivity.RegisterActivity
 import com.example.am_projekt.sensorActivity.SensorActivity
@@ -18,6 +19,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        DataManager(this).sendPendingWeatherData()
+        DataManager(this).sendPendingCalculatorData()
         setCurrentUsernameTextView()
     }
 

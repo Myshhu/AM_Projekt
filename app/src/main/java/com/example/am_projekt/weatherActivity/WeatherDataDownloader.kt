@@ -59,6 +59,7 @@ class WeatherDataDownloader(context: Activity) : AsyncTask<Void, Int, Void>() {
             connection.disconnect()
         } catch (e: Exception) {
             e.printStackTrace()
+            showToast("Connection failed")
         }
 
         return null
@@ -127,5 +128,11 @@ class WeatherDataDownloader(context: Activity) : AsyncTask<Void, Int, Void>() {
         DataManager(context.get()).manageWeatherItem(
             CurrentLoggedUserData.getCurrentLoggedUsername(),
             cityName, temperature.toFloat(), humidity.toFloat() ,pressure.toFloat())
+    }
+
+    private fun showToast(message: String) {
+        context.get()?.runOnUiThread {
+            Toast.makeText(context.get(), message, Toast.LENGTH_SHORT).show()
+        }
     }
 }

@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import com.example.am_projekt.R
-import com.example.am_projekt.database.DatabaseHelper
+import com.example.am_projekt.dataManager.DataManager
 import com.example.am_projekt.variables.CurrentLoggedUserData
 import kotlinx.android.synthetic.main.activity_calculator.*
 
@@ -23,7 +23,7 @@ class CalculatorActivity : AppCompatActivity() {
         getNumbersFromInputs()
         val result = firstNumber + secondNumber
         setResult(result)
-        saveResultsToDatabase(
+        manageData(
             CurrentLoggedUserData.getCurrentLoggedUsername(),
             firstNumber, secondNumber, "ADD", result)
     }
@@ -32,7 +32,7 @@ class CalculatorActivity : AppCompatActivity() {
         getNumbersFromInputs()
         val result = firstNumber - secondNumber
         setResult(result)
-        saveResultsToDatabase(
+        manageData(
             CurrentLoggedUserData.getCurrentLoggedUsername(),
             firstNumber, secondNumber, "SUB", result)
     }
@@ -41,7 +41,7 @@ class CalculatorActivity : AppCompatActivity() {
         getNumbersFromInputs()
         val result = firstNumber * secondNumber
         setResult(result)
-        saveResultsToDatabase(
+        manageData(
             CurrentLoggedUserData.getCurrentLoggedUsername(),
             firstNumber, secondNumber, "MUL", result)
     }
@@ -50,7 +50,7 @@ class CalculatorActivity : AppCompatActivity() {
         getNumbersFromInputs()
         val result = firstNumber / secondNumber
         setResult(result)
-        saveResultsToDatabase(
+        manageData(
             CurrentLoggedUserData.getCurrentLoggedUsername(),
             firstNumber, secondNumber, "DIV", result)
     }
@@ -68,7 +68,7 @@ class CalculatorActivity : AppCompatActivity() {
         tvResult.text = result.toString()
     }
 
-    private fun saveResultsToDatabase(username: String, firstNumber: Float, secondNumber: Float, operation: String, result: Float) {
-        DatabaseHelper(this).addCalculatorItem(username, firstNumber, secondNumber, operation, result)
+    private fun manageData(username: String, firstNumber: Float, secondNumber: Float, operation: String, result: Float) {
+        DataManager(this).manageCalculatorItem(username, firstNumber, secondNumber, operation, result)
     }
 }
