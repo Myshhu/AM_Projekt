@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.Toast
 import com.example.am_projekt.R
 import com.example.am_projekt.database.DatabaseHelper
-import com.example.am_projekt.variables.CurrentLoggedUser
+import com.example.am_projekt.variables.CurrentLoggedUserData
 import kotlinx.android.synthetic.main.activity_calculator.*
 
 class CalculatorActivity : AppCompatActivity() {
@@ -23,7 +23,8 @@ class CalculatorActivity : AppCompatActivity() {
         getNumbersFromInputs()
         val result = firstNumber + secondNumber
         setResult(result)
-        saveResultsToDatabase(CurrentLoggedUser.getCurrentLoggedUsername(),
+        saveResultsToDatabase(
+            CurrentLoggedUserData.getCurrentLoggedUsername(),
             firstNumber, secondNumber, "ADD", result)
     }
 
@@ -31,7 +32,8 @@ class CalculatorActivity : AppCompatActivity() {
         getNumbersFromInputs()
         val result = firstNumber - secondNumber
         setResult(result)
-        saveResultsToDatabase(CurrentLoggedUser.getCurrentLoggedUsername(),
+        saveResultsToDatabase(
+            CurrentLoggedUserData.getCurrentLoggedUsername(),
             firstNumber, secondNumber, "SUB", result)
     }
 
@@ -39,7 +41,8 @@ class CalculatorActivity : AppCompatActivity() {
         getNumbersFromInputs()
         val result = firstNumber * secondNumber
         setResult(result)
-        saveResultsToDatabase(CurrentLoggedUser.getCurrentLoggedUsername(),
+        saveResultsToDatabase(
+            CurrentLoggedUserData.getCurrentLoggedUsername(),
             firstNumber, secondNumber, "MUL", result)
     }
 
@@ -47,7 +50,8 @@ class CalculatorActivity : AppCompatActivity() {
         getNumbersFromInputs()
         val result = firstNumber / secondNumber
         setResult(result)
-        saveResultsToDatabase(CurrentLoggedUser.getCurrentLoggedUsername(),
+        saveResultsToDatabase(
+            CurrentLoggedUserData.getCurrentLoggedUsername(),
             firstNumber, secondNumber, "DIV", result)
     }
 

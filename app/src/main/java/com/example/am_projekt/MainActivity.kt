@@ -8,7 +8,7 @@ import com.example.am_projekt.calculatorActivity.CalculatorActivity
 import com.example.am_projekt.loginActivity.LoginActivity
 import com.example.am_projekt.registerActivity.RegisterActivity
 import com.example.am_projekt.sensorActivity.SensorActivity
-import com.example.am_projekt.variables.CurrentLoggedUser
+import com.example.am_projekt.variables.CurrentLoggedUserData
 import com.example.am_projekt.weatherActivity.WeatherActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setCurrentUsernameTextView() {
-        val resultString = "Current user: " + CurrentLoggedUser.getCurrentLoggedUsername()
+        val resultString = "Current user: " + CurrentLoggedUserData.getCurrentLoggedUsername()
         tvCurrentLoggedUser.text = resultString
     }
 

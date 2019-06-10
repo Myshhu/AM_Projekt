@@ -7,16 +7,20 @@ import android.view.View
 import android.widget.Toast
 import com.example.am_projekt.MainActivity
 import com.example.am_projekt.R
-import com.example.am_projekt.variables.CurrentLoggedUser
+import com.example.am_projekt.variables.CurrentLoggedUserData
 import kotlinx.android.synthetic.main.content_login.*
 import java.io.PrintWriter
 import java.lang.NullPointerException
 import java.net.Socket
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import java.net.InetSocketAddress
 
 
 class LoginActivity : AppCompatActivity() {
+
+    private val LOGIN = "login"
+    private val VERIFIED = "verified"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
             val username = etLogin.text.toString()
             val password = etPassword.text.toString()
             val serverIP = etIP.text.toString()
-            var clientSocket: Socket? = null
+            val clientSocket: Socket?
 
             if (username == "" || password == "") {
                 showToast("Please fill username and password")
@@ -42,13 +46,14 @@ class LoginActivity : AppCompatActivity() {
 
             sendUsernameAndPasswordToServer(username, password, clientSocket)
         }.start()
-
     }
 
     private fun createConnection(serverIP: String): Socket? {
         val clientSocket: Socket?
+        val socketAddress = InetSocketAddress(serverIP, 50005)
         try {
-            clientSocket = Socket(serverIP, 50005)
+            clientSocket = Socket()
+            clientSocket.connect(socketAddress, 3000)
         } catch (e: Exception) {
             e.printStackTrace()
             showToast("Connection failed")
@@ -61,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
         try {
             if(clientSocket != null) {
                 val printWriter = PrintWriter(clientSocket.getOutputStream(), true)
-                printWriter.println("login")
+                printWriter.println(LOGIN)
                 printWriter.println(username)
                 printWriter.println(password)
                 if(readAnswerFromServer(clientSocket)) {
@@ -79,11 +84,11 @@ class LoginActivity : AppCompatActivity() {
 
     private fun readAnswerFromServer(clientSocket: Socket): Boolean {
         val br = BufferedReader(InputStreamReader(clientSocket.getInputStream()))
-        return br.readLine() == "verified"
+        return br.readLine() == VERIFIED
     }
 
     private fun afterSuccessfulLogin(username: String) {
-        CurrentLoggedUser.setCurrentLoggedUsername(username)
+        CurrentLoggedUserData.setCurrentLoggedUsername(username)
         showToast("Logged in")
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)

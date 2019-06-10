@@ -8,8 +8,9 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.example.am_projekt.R
+import com.example.am_projekt.dataManager.DataManager
 import com.example.am_projekt.database.DatabaseHelper
-import com.example.am_projekt.variables.CurrentLoggedUser
+import com.example.am_projekt.variables.CurrentLoggedUserData
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -26,7 +27,11 @@ class WeatherDataDownloader(context: Activity) : AsyncTask<Void, Int, Void>() {
     private var editTextCityName: WeakReference<EditText>? = null
     private lateinit var cityName: String
 
-    private lateinit var myJSONObject: JSONObject
+    private lateinit var dataJSONObject: JSONObject
+
+    private var humidity: String = ""
+    private var pressure: String = ""
+    private var temperature: Double = 0.0
 
     override fun doInBackground(vararg params: Void?): Void? {
         val connection: HttpURLConnection
@@ -45,7 +50,7 @@ class WeatherDataDownloader(context: Activity) : AsyncTask<Void, Int, Void>() {
             //Read response
             when {
                 connection.responseCode == 200 -> {
-                    myJSONObject = createJSONFromResponse(connection)
+                    dataJSONObject = createJSONFromResponse(connection)
                     publishProgress(200)
                 }
                 connection.responseCode == 404 -> publishProgress(404)
@@ -72,7 +77,11 @@ class WeatherDataDownloader(context: Activity) : AsyncTask<Void, Int, Void>() {
                 builder.setTitle("Error").setMessage("City not found").show()
                 Toast.makeText(context.get(), "City not found", Toast.LENGTH_LONG).show()
             }
-            values[0] == 200 -> updateTextViews()
+            values[0] == 200 -> {
+                getValuesFromResponse()
+                updateTextViews()
+                manageData(cityName, temperature, pressure, humidity)
+            }
             else -> Toast.makeText(context.get(), "Error code: " + Integer.toString(values[0] ?: 0), Toast.LENGTH_LONG).show()
         }
     }
@@ -96,25 +105,27 @@ class WeatherDataDownloader(context: Activity) : AsyncTask<Void, Int, Void>() {
         return JSONObject(result.toString())
     }
 
+    private fun getValuesFromResponse() {
+        humidity = dataJSONObject.getJSONObject("main").getString("humidity")
+        pressure = dataJSONObject.getJSONObject("main").getString("pressure")
+        val rawTemperature = java.lang.Double.parseDouble(dataJSONObject.getJSONObject("main").getString("temp"))
+        temperature = Math.round((rawTemperature - 273.15) * 100.0) / 100.0
+    }
+
     private fun updateTextViews() {
         try {
-            val humidity = myJSONObject.getJSONObject("main").getString("humidity")
-            val pressure = myJSONObject.getJSONObject("main").getString("pressure")
-            val rawTemperature = java.lang.Double.parseDouble(myJSONObject.getJSONObject("main").getString("temp"))
-            val temperature = Math.round((rawTemperature - 273.15) * 100.0) / 100.0
             textViewTemp?.get()?.text = String.format("%s °C", java.lang.Double.toString(temperature))
             textViewPressure?.get()?.text = String.format("%s hPa", pressure)
             textViewHumidity?.get()?.text = String.format("%s%%", humidity)
-
-            addToDatabase(cityName, temperature, pressure, humidity)
 
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
-    private fun addToDatabase(cityName: String, temperature: Double, pressure: String, humidity: String) {
-        DatabaseHelper(context.get()).addWeatherItem(CurrentLoggedUser.getCurrentLoggedUsername(),
+    private fun manageData(cityName: String, temperature: Double, pressure: String, humidity: String) {
+        DataManager(context.get()).manageWeatherItem(
+            CurrentLoggedUserData.getCurrentLoggedUsername(),
             cityName, temperature.toFloat(), humidity.toFloat() ,pressure.toFloat())
     }
 }

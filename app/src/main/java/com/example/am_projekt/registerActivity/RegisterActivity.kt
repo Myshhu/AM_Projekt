@@ -7,22 +7,25 @@ import android.view.View
 import android.widget.Toast
 import com.example.am_projekt.MainActivity
 import com.example.am_projekt.R
-import com.example.am_projekt.variables.CurrentLoggedUser
+import com.example.am_projekt.variables.CurrentLoggedUserData
 
 import kotlinx.android.synthetic.main.content_register.*
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.PrintWriter
 import java.lang.NullPointerException
+import java.net.InetSocketAddress
 import java.net.Socket
 
 class RegisterActivity : AppCompatActivity() {
+
+    private val REGISTER = "register"
+    private val REGISTERED = "registered"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
     }
-
 
     fun btnRegisterClick(v: View) {
         Thread {
@@ -54,8 +57,10 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun createConnection(serverIP: String): Socket? {
         val clientSocket: Socket?
+        val socketAddress = InetSocketAddress(serverIP, 50005)
         try {
-            clientSocket = Socket(serverIP, 50005)
+            clientSocket = Socket()
+            clientSocket.connect(socketAddress, 3000)
         } catch (e: Exception) {
             e.printStackTrace()
             showToast("Connection failed")
@@ -68,7 +73,7 @@ class RegisterActivity : AppCompatActivity() {
         try {
             if(clientSocket != null) {
                 val printWriter = PrintWriter(clientSocket.getOutputStream(), true)
-                printWriter.println("register")
+                printWriter.println(REGISTER)
                 printWriter.println(username)
                 printWriter.println(password)
                 if(readAnswerFromServer(clientSocket)) {
@@ -86,11 +91,11 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun readAnswerFromServer(clientSocket: Socket): Boolean {
         val br = BufferedReader(InputStreamReader(clientSocket.getInputStream()))
-        return br.readLine() == "registered"
+        return br.readLine() == REGISTERED
     }
 
     private fun afterSuccessfulRegister(username: String) {
-        CurrentLoggedUser.setCurrentLoggedUsername(username)
+        CurrentLoggedUserData.setCurrentLoggedUsername(username)
         showToast("Successfully registered user")
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
