@@ -10,9 +10,9 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Wind weather info"
+            android:text="@string/find_weather_info"
             android:gravity="center"
-            android:textSize="45sp"/>
+            android:textSize="35sp"/>
 
     <TextView
             android:text="@string/enter_city_name"
