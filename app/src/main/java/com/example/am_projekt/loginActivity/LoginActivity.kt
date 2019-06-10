@@ -21,6 +21,7 @@ class LoginActivity : AppCompatActivity() {
 
     private val LOGIN = "login"
     private val VERIFIED = "verified"
+    private var serverIP: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,15 +32,14 @@ class LoginActivity : AppCompatActivity() {
         Thread {
             val username = etLogin.text.toString()
             val password = etPassword.text.toString()
-            val serverIP = etIP.text.toString()
-            val clientSocket: Socket?
+            serverIP = etIP.text.toString()
 
             if (username == "" || password == "") {
                 showToast("Please fill username and password")
                 return@Thread
             }
 
-            clientSocket = createConnection(serverIP)
+            val clientSocket = createConnection(serverIP)
             if (clientSocket == null) {
                 return@Thread
             }
@@ -89,6 +89,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun afterSuccessfulLogin(username: String) {
         CurrentLoggedUserData.setCurrentLoggedUsername(username)
+        CurrentLoggedUserData.setCurrentServerIP(serverIP)
         showToast("Logged in")
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
