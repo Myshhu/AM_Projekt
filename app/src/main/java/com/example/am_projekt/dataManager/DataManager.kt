@@ -245,13 +245,13 @@ class DataManager(context: Activity?) {
                 do {
                     val id = cursor.getInt(0)
                     val username = cursor.getString(1)
-                    val firstNumber = cursor.getString(2)
+                    val firstNumber = cursor.getFloat(2)
                     val secondNumber = cursor.getFloat(3)
-                    val operation = cursor.getFloat(4)
+                    val operation = cursor.getString(4)
                     val result = cursor.getFloat(5)
 
                     val successfullySent =
-                        sendWeatherDataToServer(username, firstNumber, secondNumber, operation, result)
+                        sendCalculatorDataToServer(username, firstNumber, secondNumber, operation, result)
                     if (successfullySent) {
                         DatabaseHelper(context.get()).deleteUnsentCalculatorItem(id)
                     } else {
